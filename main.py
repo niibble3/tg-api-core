@@ -1,22 +1,13 @@
 from typing import Dict, List, Any
 
-import toml
 from os import path
 from pyrogram import Client, idle
 from flask import Flask
 
 from threading import Thread
 
-from gateway.api import api, meta_info
-
-
-# Set telegram client varibles for auth
-config = toml.load('./config.toml') \
-    if path.exists('./config.toml') \
-    else exit('Please set ./config.toml')
-
-api_id = config['telegram_client']['api_id']
-api_hash = config['telegram_client']['api_hash']
+from meta.meta import MetaInfo
+from gateway.user_controller import GetMe
 
 
 # verify if session exists
@@ -32,18 +23,21 @@ gateway = Flask(__name__)
 
 def main():
 
+    # Register Gateway Resources
+    MetaInfo.api.add_resource(GetMe, '/me')
+
     # Register Blueprints
-    gateway.register_blueprint(api)
+    gateway.register_blueprint(MetaInfo.app)
 
     # Initialize telegram session
-    clients['main'] = Client(config['sessions']['main'], api_id=api_id, api_hash=api_hash)
+    clients['main'] = MetaInfo.client
     main_account = clients['main']
 
     # share information
-    meta_info.client = main_account
+    MetaInfo.client = main_account
 
     # run client
-    main_account.start()
+    MetaInfo.client.start()
     # run api gateway in background
     Thread(target=gateway.run, daemon=True).start()
 
@@ -51,7 +45,7 @@ def main():
     idle()
 
     # when done, stop client
-    main_account.stop()
+    MetaInfo.client.stop()
 
 
 if __name__ == '__main__':
