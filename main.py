@@ -1,8 +1,9 @@
-from typing import Dict, List, Any
+from typing import Dict
 
 from os import path
 from pyrogram import Client, idle
 from flask import Flask
+from flasgger import Swagger
 
 from threading import Thread
 
@@ -19,6 +20,13 @@ clients: Dict[str, Client] = dict()
 
 # API Gateway App
 gateway = Flask(__name__)
+
+# Set up Swagger
+gateway.config['SWAGGER'] = {
+    'title': 'tg-api-core API',
+    'uiversion': 3
+}
+swagger = Swagger(gateway)
 
 
 def main():
