@@ -40,8 +40,8 @@ parameters:
     name: body
     description: JSON parameters.
     required: true
-    id: Message
     schema:
+      id: Message
       properties:
         to:
           type: string
@@ -55,6 +55,7 @@ responses:
   201:
     description: Sended data
     schema:
+      id: MessageSend
       properties:
         message:
           type: string
