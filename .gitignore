@@ -3,6 +3,7 @@
 .idea/
 config.toml
 *.session
+*.session-journal
 
 
 # Byte-compiled / optimized / DLL files
