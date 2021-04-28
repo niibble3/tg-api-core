@@ -8,7 +8,7 @@ from flasgger import Swagger
 from threading import Thread
 
 from meta.meta import MetaInfo
-from gateway.user_controller import GetMe
+from gateway.user_controller import GetMe, UserMessages
 
 
 # verify if session exists
@@ -33,6 +33,7 @@ def main():
 
     # Register Gateway Resources
     MetaInfo.api.add_resource(GetMe, '/me')
+    MetaInfo.api.add_resource(UserMessages, '/user/message')
 
     # Register Blueprints
     gateway.register_blueprint(MetaInfo.app)
