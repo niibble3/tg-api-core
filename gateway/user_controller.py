@@ -64,6 +64,31 @@ responses:
         info:
           type: object
           description: Sended message information
+          properties:
+            message_id:
+              type: integer
+            from_user:
+              type: object
+              properties:
+                id:
+                  type: integer
+                first_name:
+                  type: string
+                is_bot:
+                  type: boolean
+            date:
+              type: string
+              example: 2021-04-28 20:15:08
+            chat:
+              type: object
+              properties:
+                id:
+                  type: integer
+                type:
+                  type: string
+                  example: private
+            text:
+              type: string
     id: MessageSend
   400:
     description: Error sending message
