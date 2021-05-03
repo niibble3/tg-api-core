@@ -10,6 +10,7 @@ from threading import Thread
 from meta.meta import MetaInfo
 from gateway.user_controller import GetMe, UserMessages
 from gateway.chat_controller import ChatController
+from gateway.participant_controller import ParticipantController
 
 
 # verify if session exists
@@ -36,6 +37,7 @@ def main():
     MetaInfo.api.add_resource(GetMe, '/me')
     MetaInfo.api.add_resource(UserMessages, '/user/message')
     MetaInfo.api.add_resource(ChatController, '/user/chat')
+    MetaInfo.api.add_resource(ParticipantController, '/participant/info')
 
     # Register Blueprints
     gateway.register_blueprint(MetaInfo.app)
