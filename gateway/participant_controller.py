@@ -16,7 +16,7 @@ class ParticipantController(Resource):
             if err:
                 raise NotImplementedError('invalid arguments')
 
-            participant = args['user'] if 'users' not in args else args['users']
+            participant = args['user'] if 'users' not in args else args['users'].split(',')
 
             user_info = MetaInfo.client.get_users(participant)
 
