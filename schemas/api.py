@@ -7,6 +7,6 @@ class ChatControllerSchema(Schema):
 
 
 class ParticipantControllerGetSchema(Schema):
-    user = fields.Str(required=True)
-    users = fields.List(fields.Str(), required=False)
+    user = fields.Str(required=False)
+    users = fields.Str(required=False, validate=lambda x: x.split(','))
 
